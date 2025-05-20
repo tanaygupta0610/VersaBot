@@ -1,0 +1,84 @@
+import discord
+from discord import app_commands
+from discord.ui import Button, View
+
+# Mock API function - replace with your actual implementation
+class ApiFun:
+    @staticmethod
+    def get_recipes_by_category(category: str) -> list[str]:
+        """Returns list of recipe names for a category"""
+        # Example data - replace with real API call
+        recipes_db = {
+            "Breakfast": ["Pancakes", "Omelette", "French Toast", "Smoothie Bowl"],
+            "Lunch": ["Caesar Salad", "Sandwich", "Soup", "Pasta"],
+            "Dinner": ["Steak", "Salmon", "Stir Fry", "Tacos"]
+        }
+        return recipes_db.get(category, [])
+
+# Main bot setup
+intents = discord.Intents.default()
+client = discord.Client(intents=intents)
+tree = app_commands.CommandTree(client)
+
+class RecipeButtons(View):
+    """Dynamic view showing recipes as buttons for a specific category"""
+    def __init__(self, category: str, recipe_names: list[str]):
+        super().__init__()
+        self.category = category
+        
+        # Create a button for each recipe
+        for recipe in recipe_names:
+            self.add_button(recipe)
+    
+    def add_button(self, recipe_name: str):
+        """Adds a button for a specific recipe"""
+        button = Button(
+            label=recipe_name,
+            style=discord.ButtonStyle.primary,
+            custom_id=f"recipe_{recipe_name.lower().replace(' ', '_')}"
+        )
+        
+        # Define callback for this button
+        async def callback(interaction: discord.Interaction):
+            await interaction.response.send_message(
+                f"Here's the recipe for {recipe_name}:\n"
+                f"(Implement your recipe display logic here)"
+            )
+        
+        button.callback = callback
+        self.add_item(button)
+
+@tree.command(name="recipes", description="Get recipes by category")
+async def recipes_command(interaction: discord.Interaction, category: str):
+    """
+    Shows all recipes in a category as interactive buttons
+    
+    Parameters
+    ----------
+    category: str
+        The category of recipes to show (e.g. "Breakfast")
+    """
+    # Get recipes for the specified category
+    recipe_names = ApiFun.get_recipes_by_category(category)
+    
+    if not recipe_names:
+        await interaction.response.send_message(
+            f"No recipes found for category '{category}'",
+            ephemeral=True
+        )
+        return
+    
+    # Create and send the view with recipe buttons
+    view = RecipeButtons(category, recipe_names)
+    await interaction.response.send_message(
+        f"Recipes in category '{category}':",
+        view=view
+    )
+
+@client.event
+async def on_ready():
+    await tree.sync()
+    print(f"Logged in as {client.user}")
+
+# Run the bot
+client.run("YOUR_BOT_TOKEN")
