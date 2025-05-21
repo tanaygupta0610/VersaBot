@@ -54,28 +54,26 @@ VersaBot is your all-in-one multifunctional Discord bot, designed to entertain, 
 5. Run the bot:
     ```bash
     python3 bot.py
-Configuration :
+
+##Configuration :
  - Make sure to enable all necessary intents in the Discord Developer Portal for your bot, including:
       Message Content Intent
       Server Members Intent (if needed)
 
-Contributing
+##Contributing
   - Pull requests are welcome! If you have suggestions for improvements or new features, feel free to fork the repo and submit a PR.
 
-License
+##License
   - This project is open-source and available under the MIT License.
-Acknowledgements
+
+##Acknowledgements
   - Thanks to the developers of various APIs used:
-
-OpenWeatherMap
-
-Free Dictionary API
-
-Spotify API / Last.fm (for music)
-
-Dog CEO API
-
-Numbers API
-
-Other motivational and quote sources
+    -OpenWeatherMap API
+    -Free Dictionary API
+    -Music Brainz API
+    -Dog CEO API
+    -Numbers API
+    -Zen Quotes API (Motivational quotes)
+    -TheMealDB API (Recipes)
+    -lyrics.ovh API
   
