@@ -166,6 +166,9 @@ async def random_music_by_genre(interaction:discord.Interaction,genre:str,limit:
 async def random_music_by_artist(interaction:discord.Interaction,artist:str,limit:int):
     recommendations=ApiFun.get_random_recommendation_by_artist(artist,limit)
     await interaction.response.send_message(ApiFun.format_rec(recommendations=recommendations))
+@client.tree.command(name="dictionary",description="Gives you definitions of a word",guild=guildid)
+async def dictionary(interaction:discord.Interaction,word:str):
+    await interaction.response.send_message(ApiFun.dic(word))
 
 client.run(config.token)
 #<@1353792149132546078> or <@userid> to mention a usercls
