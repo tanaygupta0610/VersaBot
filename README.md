@@ -68,12 +68,12 @@ VersaBot is your all-in-one multifunctional Discord bot, designed to entertain, 
 
 ## Acknowledgements
   - Thanks to the developers of various APIs used:
-    -OpenWeatherMap API
-    -Free Dictionary API
-    -Music Brainz API
-    -Dog CEO API
-    -Numbers API
-    -Zen Quotes API (Motivational quotes)
-    -TheMealDB API (Recipes)
-    -lyrics.ovh API
+    - OpenWeatherMap API
+    - Free Dictionary API
+    - Music Brainz API
+    - Dog CEO API
+    - Numbers API
+    - Zen Quotes API (Motivational quotes)
+    - TheMealDB API (Recipes)
+    - lyrics.ovh API
   
