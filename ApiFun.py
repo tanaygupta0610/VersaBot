@@ -1,6 +1,6 @@
 import requests, json, random,discord,config
 import pathlib
-weather_key="b038fe70aaaa4acc9a1123739250304"
+weather_key="#API key here"
 def motivation():
     apiurl=apiurl = "https://zenquotes.io/api/random"
     response = requests.get(apiurl)
