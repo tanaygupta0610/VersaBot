@@ -1,6 +1,6 @@
 # VersaBot 
-This is a discord bot created by Tanay Gupta in March 2025 and has been active since.
-VersaBot is your all-in-one multifunctional Discord bot, designed to entertain, inform, and assist! Whether you're looking for music recommendations, curious about the weather, seeking a motivational quote, or just want to play a quick game of Truth or Dare — VersaBot has you covered.
+VersaBot is a discord bot created by me in the month of March, 2025.
+This bot is your all-in-one multifunctional Discord bot, designed to entertain, inform, and assist! Whether you're looking for music recommendations, curious about the weather, seeking a motivational quote, or just want to play a quick game of Truth or Dare — VersaBot has you covered.
 
 ---
 
@@ -70,7 +70,7 @@ VersaBot is your all-in-one multifunctional Discord bot, designed to entertain, 
   - Thanks to the developers of various APIs used:
     - OpenWeatherMap API
     - Free Dictionary API
-    - Music Brainz API
+    - MusicBrainz API
     - Dog CEO API
     - Numbers API
     - Zen Quotes API (Motivational quotes)
