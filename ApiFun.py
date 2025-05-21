@@ -236,6 +236,14 @@ def format_rec(recommendations:dict)->str:
     title=recommendations.get('title','Unknown Track')
     year=recommendations.get('first-release-date','Unknown Year')[:4]
     return f"🎵 Recommended Track: {artist} - {title} ({year})"
+def dic(word:str):
+    link=f'https://api.dictionaryapi.dev/api/v2/entries/en/{word}'
+    response=requests.get(link).json()
+    res=""
+    meanings=response[0]['meanings']
+    for a in range(len(meanings)):
+        res+=str(a+1)+") Part of speech- "+meanings[a]['partOfSpeech']+"\n"+"Definition- "+meanings[a]['definitions'][0]['definition']+" \n"
+    return res
 
     
     
