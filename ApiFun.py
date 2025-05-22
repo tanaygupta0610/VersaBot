@@ -239,7 +239,10 @@ def format_rec(recommendations:dict)->str:
 def dic(word:str):
     link=f'https://api.dictionaryapi.dev/api/v2/entries/en/{word}'
     response=requests.get(link).json()
-    res=""
+    if(type(response)==type({}) and response['title']=='No Definitions Found'):
+        return("Sorry, the word "+ word +" was not found!")
+    word=word.lower()
+    res="Word - "+word+"\n"
     meanings=response[0]['meanings']
     for a in range(len(meanings)):
         res+=str(a+1)+") Part of speech- "+meanings[a]['partOfSpeech']+"\n"+"Definition- "+meanings[a]['definitions'][0]['definition']+" \n"
