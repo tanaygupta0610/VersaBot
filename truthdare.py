@@ -1,4 +1,5 @@
 #File containing suggestions to cure boredom, truth questions and dares.
+import random
 dares = [
     "Do your best impression of a celebrity.",
     "Send the last meme in your gallery to the group.",
@@ -153,3 +154,11 @@ borerom=["Send her a ‘remember when…’ text about a fun memory.",
 "Find a cheesy love quote and meme-ify it for her.",
 "Plan a virtual date idea (e.g., Netflix Party + trivia).",
 "Write her a 5-word love story and send it."]
+def bore_fun():
+    return(random.choice(bore))
+def bore_shristan():
+    return(random.choice(boreshristan))
+def get_truth():
+    return(random.choice(truth_questions))
+def get_dare():
+    return(random.choice(dares))
