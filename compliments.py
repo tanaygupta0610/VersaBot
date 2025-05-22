@@ -1,4 +1,4 @@
-#Some compliments
+#Some compliments and pickup lines
 import random
 pickup_lines = [
     "Are you a magician? Because whenever I look at you, everyone else disappears.",
@@ -289,3 +289,14 @@ shrist_trait_compliments = [
     "You paint with the same care you use to treat patients—full of heart.",
     "The world needs more healers like you: smart, artistic, and kind."
 ]
+def trait_compliment_T():
+    return(random.choice(T_trait_compliments))
+def romantic_compliment_T():
+    return(random.choice(T_romantic_compliments))
+def romantic_compliment_shris():
+    return (random.choice(compliments_Sh))
+def trait_compliment_shris():
+    return(random.choice(shrist_trait_compliments))
+def pickup_line():
+    random_line = random.choice(pickup_lines)
+    return ""+random_line
