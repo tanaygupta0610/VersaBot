@@ -1,0 +1,5 @@
+#modules==version
+discord==2.3.2
+bs4==4.12.3
+requests==2.31.0
+aiohttp==3.9.1
