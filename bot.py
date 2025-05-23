@@ -39,7 +39,7 @@ client = Client(command_prefix="/", intents=intents)
 serverid = #enter theserver id
 helplist = "/hello -Says hello to Sh and T  \n /our_list - Sends the link of our playlist <3 \n /purpose - The purpose of my creation \n /help - To give this response "
 
-@client.tree.command(name="hello", description="Says hello to Shristi and Tanay", guild=discord.Object(id=serverid))
+@client.tree.command(name="hello", description="Says hello to Sh and T", guild=discord.Object(id=serverid))
 async def sayshello(interaction: discord.Interaction, us: str):
     await interaction.response.send_message("Hi sweetheart "+us+" how are you doing?")
 
@@ -51,7 +51,7 @@ async def playlist(interaction: discord.Interaction,):
 
 @client.tree.command(name="purpose", description="The purpose of my creation", guild=discord.Object(id=serverid))
 async def create(interaction: discord.Interaction,):
-    await interaction.response.send_message("Hi, I was created by @sabmohmaayahai9462 on 31st March at around 2am."+" He created me for @godd_essoftime. I was created to bring joy to the server especially when one of ShrisTan is not here :-( .")
+    await interaction.response.send_message("Hi, I was created by @sabmohmaayahai9462 on 31st March at around 2am."+". I was created to bring joy to the server :-( .")
 
 
 @client.tree.command(name="motivation", description="Delivers a random motivational quote", guild=discord.Object(id=serverid))
