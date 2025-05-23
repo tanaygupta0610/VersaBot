@@ -3,9 +3,7 @@ from bs4 import BeautifulSoup
 from discord.ext import commands
 from discord import app_commands
 import ApiFun, ButtonClass,config
-#Tanays_server_id =1356118985539588146
-# Shrishtan's_server_id = 761909294126989353
-# Reddit API setup
+#m_server_id =
 
 guildid=discord.Object(id=config.serverid)
 '''
