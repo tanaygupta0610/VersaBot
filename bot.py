@@ -169,4 +169,4 @@ async def dictionary(interaction:discord.Interaction,word:str):
     await interaction.response.send_message(ApiFun.dic(word))
 
 client.run(config.token)
-#<@1353792149132546078> or <@userid> to mention a usercls
+#<@> or <@userid> to mention a usercls
