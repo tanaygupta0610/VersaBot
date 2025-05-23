@@ -12,7 +12,7 @@ guildid=discord.Object(id=config.serverid)
 reddit = praw.Reddit(
     client_id='YOUR_CLIENT_ID',
     client_secret='YOUR_CLIENT_SECRET',
-    user_agent='ShristiMemeBot/1.0'
+    user_agent='sh/1.0'
 )
 ''' 
     
@@ -36,8 +36,8 @@ intents.message_content=True
 client = Client(command_prefix="/", intents=intents)
 
 
-serverid = 761909294126989353
-helplist = "/hello -Says hello to Shristi and Tanay  \n /our_list - Sends the link of our playlist <3 \n /purpose - The purpose of my creation \n /help - To give this response "
+serverid = #enter theserver id
+helplist = "/hello -Says hello to Sh and T  \n /our_list - Sends the link of our playlist <3 \n /purpose - The purpose of my creation \n /help - To give this response "
 
 @client.tree.command(name="hello", description="Says hello to Shristi and Tanay", guild=discord.Object(id=serverid))
 async def sayshello(interaction: discord.Interaction, us: str):
@@ -66,11 +66,11 @@ async def help(interaction: discord.Interaction,):
 
 @client.tree.command(name="compliment_shris", description="Gives a personalized compliment to Shristi.", guild=discord.Object(id=serverid))
 async def complimentshris(interaction: discord.Interaction,):
-    await interaction.response.send_message(view=ButtonClass.ComplimentShristi())
+    await interaction.response.send_message(view=ButtonClass.ComplimentSh())
 
 @client.tree.command(name="compliment_tan", description="Gives a personalised compliment to Tanay", guild=discord.Object(id=serverid))
 async def complimenttan(interaction: discord.Interaction,):
-    await interaction.response.send_message(view=ButtonClass.ComplimentTanay())
+    await interaction.response.send_message(view=ButtonClass.ComplimentT())
 
 
 @client.tree.command(name="say", description="Say anything", guild=discord.Object(id=serverid))
