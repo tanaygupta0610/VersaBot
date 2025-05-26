@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup
 from discord.ext import commands
 from discord import app_commands
 import ApiFun, ButtonClass,config
-#m_server_id =
+#m_server_id =Enter the server id here
 
 guildid=discord.Object(id=config.serverid)
 '''
