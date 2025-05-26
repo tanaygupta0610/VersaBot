@@ -245,7 +245,9 @@ def dic(word:str):
     res="Word - "+word+"\n"
     meanings=response[0]['meanings']
     for a in range(len(meanings)):
-        res+=str(a+1)+") Part of speech- "+meanings[a]['partOfSpeech']+"\n"+"Definition- "+meanings[a]['definitions'][0]['definition']+" \n"
+        res+=str(a+1)+") Part of speech- "+meanings[a]['partOfSpeech']+"\n"
+        for b in range(len(meanings[a]["definitions"])):
+            res+="Definition"+"#"+str(b+1)+" - "+meanings[a]['definitions'][b]['definition']+" \n"
     return res
 
     
