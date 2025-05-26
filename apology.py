@@ -1,4 +1,5 @@
 import random
+#Apologise to your loved one
 apologise_to_Sh=["Sh, my heart aches knowing I hurt you. You mean the world to me, and I’ll do anything to make it right.",
 "I’m sorry, my love. Even the stars dim when you’re upset with me. Please forgive me.",
 "Every moment without your smile feels like a lifetime. I promise to be better—for you, for us.",
