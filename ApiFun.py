@@ -249,6 +249,25 @@ def dic(word:str):
         for b in range(len(meanings[a]["definitions"])):
             res+="Definition"+"#"+str(b+1)+" - "+meanings[a]['definitions'][b]['definition']+" \n"
     return res
+def syn(word):
+    link=f'https://api.dictionaryapi.dev/api/v2/entries/en/{word}'
+    response=requests.get(link).json()
+    if(type(response)==type({}) and response['title']=='No Definitions Found'):
+        return("Sorry, the word "+ word +" was not found!")
+    word=word.lower()
+    res="Word - "+word+"\n"
+    org="Word - "+word+"\n"
+    meanings=response[0]['meanings']
+    for a in range(len(meanings)):
+        res+=str(a+1)+") "+"Part of Speech - "+meanings[a]["partOfSpeech"]+"\n"
+        if(len(meanings[a]['synonyms'])!=0):
+            res+="Synonyms - "
+            for i in range(len(meanings[a]['synonyms'])):
+                res+=meanings[a]['synonyms'][i]
+                if(i!=len(meanings[a]['synonyms'])-1):
+                    res+=", "
+            res+="\n"
+            res+="\n"
+    return res
 
-    
     

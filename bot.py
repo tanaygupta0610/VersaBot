@@ -34,7 +34,7 @@ intents.message_content=True
 client = Client(command_prefix="/", intents=intents)
 
 
-serverid = #enter theserver id
+serverid =0 #enter theserver id
 helplist = "/hello -Says hello to Sh and T  \n /our_list - Sends the link of our playlist <3 \n /purpose - The purpose of my creation \n /help - To give this response "
 
 @client.tree.command(name="hello", description="Says hello to Sh and T", guild=discord.Object(id=serverid))
@@ -167,6 +167,12 @@ async def random_music_by_artist(interaction:discord.Interaction,artist:str,limi
 @client.tree.command(name="dictionary",description="Gives you definitions of a word",guild=guildid)
 async def dictionary(interaction:discord.Interaction,word:str):
     await interaction.response.send_message(ApiFun.dic(word))
-
+async def bolo(interaction:discord.Interaction,msg:str):
+    await interaction.response.send_message(interaction.user.mention+" says '"+msg+"'")
+@client.tree.command(name="synonyms",description="Gives you synonyms of a word",guild=guildid)
+async def synonym(interaction:discord.Interaction,word:str):
+    await interaction.response.send_message(ApiFun.syn(word))
+async def birthday_function(interaction: discord.Interaction,user:discord.Member,year:int,month:int,day:int):
+    await interaction.response.send_message(embed=config.countdown(user,year,month,day))
 client.run(config.token)
 #<@> or <@userid> to mention a usercls
