@@ -174,5 +174,7 @@ async def synonym(interaction:discord.Interaction,word:str):
     await interaction.response.send_message(ApiFun.syn(word))
 async def birthday_function(interaction: discord.Interaction,user:discord.Member,year:int,month:int,day:int):
     await interaction.response.send_message(embed=config.countdown(user,year,month,day))
+async  def askai(interaction:discord.Interaction,msg:str):
+    await interaction.response.send_message(ApiFun.askai(msg))
 client.run(config.token)
 #<@> or <@userid> to mention a usercls

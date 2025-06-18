@@ -1,9 +1,9 @@
 import random, discord,datetime
+OpenAIToken=0#Enter your openai token for chat gpt operations
 token = 'Enter your token here'
 #Enter user id of sid, T and SH below
 userid={"Sid":1,"Sh":2,"T":3}
 serverid = 0 #Enter your server id here
-
 def rotate_bottle(interaction:discord.Interaction):
     players=["Sh", "T"]
     member=interaction.guild.fetch_member(userid["Sid"])

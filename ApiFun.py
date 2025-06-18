@@ -1,5 +1,6 @@
 import requests, json, random,discord,config
 import pathlib
+from openai import OpenAI
 weather_key="#API key here"
 def motivation():
     apiurl=apiurl = "https://zenquotes.io/api/random"
@@ -269,5 +270,14 @@ def syn(word):
             res+="\n"
             res+="\n"
     return res
+def askai(message:str):
+    client = OpenAI(api_key=config.OpenAIToken)
+    response = client.chat.completions.create(
+        model="gpt-4",
+        messages=[
+            {"role": "user", "content": message}]
+    )
+    gpt_response = response.choices[0].message.content
+    return gpt_response
 
     
