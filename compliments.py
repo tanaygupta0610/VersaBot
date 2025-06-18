@@ -1,5 +1,4 @@
 #Some compliments and pickup lines
-import random
 pickup_lines = [
     "Are you a magician? Because whenever I look at you, everyone else disappears.",
     "Do you have a name, or can I call you mine?",
@@ -26,7 +25,7 @@ pickup_lines = [
     "My doctor said, I'm lacking Vitamin U",
     "Your pussy seems so dry, can i make it wet using my cum",
 ]
-compliments_Sh = [
+Sh_romantic_compliments = [
     "Your smile lights up every room you walk into.",
     "I love the way you make even ordinary moments feel magical.",
     "Your kindness inspires everyone around you to be better.",
@@ -236,7 +235,7 @@ T_romantic_compliments = [
     "Your soul is as beautiful as your smile.",
     "Loving you is the easiest and best thing I’ve ever done."
 ]
-shrist_trait_compliments = [
+Sh_trait_compliments = [
     "Sh, your dedication to academics is truly inspiring.",
     "You’re not just a doctor—you’re a lifesaver in every sense.",
     "Your paintings must be as beautiful as your soul.",
@@ -289,14 +288,33 @@ shrist_trait_compliments = [
     "You paint with the same care you use to treat patients—full of heart.",
     "The world needs more healers like you: smart, artistic, and kind."
 ]
-def trait_compliment_T():
-    return(random.choice(T_trait_compliments))
-def romantic_compliment_T():
-    return(random.choice(T_romantic_compliments))
-def romantic_compliment_shris():
-    return (random.choice(compliments_Sh))
-def trait_compliment_shris():
-    return(random.choice(shrist_trait_compliments))
-def pickup_line():
-    random_line = random.choice(pickup_lines)
-    return ""+random_line
+positive_words = {
+    'a': ['Amazing', 'Awesome', 'Affectionate', 'Admirable'],
+    'b': ['Brilliant', 'Beautiful', 'Blessed', 'Brave'],
+    'c': ['Caring', 'Creative', 'Confident', 'Charming'],
+    'd': ['Delightful', 'Dazzling', 'Dedicated', 'Dependable'],
+    'e': ['Excellent', 'Energetic', 'Elegant', 'Empathetic'],
+    'f': ['Fantastic', 'Fabulous', 'Faithful', 'Friendly'],
+    'g': ['Gracious', 'Great', 'Generous', 'Genuine'],
+    'h': ['Happy', 'Honest', 'Helpful', 'Humble'],
+    'i': ['Incredible', 'Inspirational', 'Innovative', 'Impressive'],
+    'j': ['Joyful', 'Jovial', 'Jubilant', 'Judicious'],
+    'k': ['Kind', 'Keen', 'Knowledgeable', 'Kingly'],
+    'l': ['Loving', 'Lively', 'Legendary', 'Luminous'],
+    'm': ['Magnificent', 'Motivated', 'Mindful', 'Marvelous'],
+    'n': ['Nice', 'Noble', 'Notable', 'Nurturing'],
+    'o': ['Outstanding', 'Optimistic', 'Open-minded', 'Organized'],
+    'p': ['Positive', 'Powerful', 'Passionate', 'Peaceful'],
+    'q': ['Quick-witted', 'Quintessential', 'Quietly-strong', 'Quality-focused'],
+    'r': ['Radiant', 'Respectful', 'Resilient', 'Reliable'],
+    's': ['Spectacular', 'Strong', 'Smart', 'Supportive'],
+    't': ['Terrific', 'Trustworthy', 'Talented', 'Thoughtful'],
+    'u': ['Unique', 'Upbeat', 'Understanding', 'Uplifting'],
+    'v': ['Valiant', 'Vibrant', 'Victorious', 'Virtuous'],
+    'w': ['Wonderful', 'Wise', 'Witty', 'Warmhearted'],
+    'x': ['Xenial', 'Xtraordinary', 'Xceptional'],  # X words are rare!
+    'y': ['Youthful', 'Yummy', 'Yielding (in a positive way)', 'Yearning (positive aspirations)'],
+    'z': ['Zealous', 'Zestful', 'Zen', 'Zappy']
+}
+
+

@@ -1,5 +1,4 @@
-import random
-sid_insults = [
+Sid_roasts= [
     # Smoking & Drinking  
     "Sid smokes so much, his lungs are basically Instagram influencers—completely burnt out but still somehow surviving on sponsorships (aka generational wealth).",  
     "If smoking kills, Sid is basically a high-score holder in the game of life.",  
@@ -38,7 +37,7 @@ sid_insults = [
     "Sid’s existence is basically a screensaver—no real purpose, just moving around aimlessly.",  
     "The only thing he’s consistent at is making bad decisions—like not wearing underwear and thinking Quora counts as a career.",  
 ]
-Sh_insults=[
+Sh_roasts=[
     "Sh's so nerdy, she debugged her birthday cake candles.",
     "Sh's love for books is rivaled only by her love for snacks—and honestly, same.",
     "If Sh had a dollar for every time she outsmarted someone, she'd fund her own library.",

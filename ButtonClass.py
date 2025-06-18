@@ -1,5 +1,5 @@
 import discord
-import config, random,ApiFun
+import config, random,ApiFun,compliments,roasts
 discordbuttonstyle=[discord.ButtonStyle.blurple,discord.ButtonStyle.gray,discord.ButtonStyle.danger,discord.ButtonStyle.green]
 class Apology(discord.ui.View):
     @discord.ui.button(label="Apologise to Sh",style=discord.ButtonStyle.red,emoji="👑")
@@ -11,27 +11,27 @@ class Apology(discord.ui.View):
 class ComplimentSh(discord.ui.View):
     @discord.ui.button(label="Romantic Compliment",style=discord.ButtonStyle.red,emoji="❤️")
     async def button_compliment(self,button,interaction):
-        await button.response.send_message("<User ID>, "+config.romantic_compliment_shris())
+        await button.response.send_message("<User ID>, "+random.choice(compliments.Sh_romantic_compliments))
     @discord.ui.button(label="Trait Compliment", style=discord.ButtonStyle.blurple,emoji="💪")
     async def button_compliment2(self,button,interaction):
-        await button.response.send_message("<User ID>, "+config.trait_compliment_shris())
+        await button.response.send_message("<User ID>, "+random.choice(compliments.Sh_trait_compliments))
 class ComplimentT(discord.ui.View):
-    @discord.ui.button(label="Romantic/Emotional Compliment",style=discord.ButtonStyle.red,emoji="❤️")
+    @discord.ui.button(label="Romantic Compliment",style=discord.ButtonStyle.red,emoji="❤️")
     async def button_romantic_compliment(self,button,interaction):
-        await(button.response.send_message("T, "+config.romantic_compliment_T()))
-    @discord.ui.button(label="Skill/Talent Compliment", style=discord.ButtonStyle.blurple,emoji="💪")
-    async def button_skill_compliment(self,button,interaction):
-        await button.response.send_message("T, "+config.trait_compliment_T())
+        await(button.response.send_message("T, "+random.choice(compliments.T_romantic_compliments)))
+    @discord.ui.button(label="Trait Compliment", style=discord.ButtonStyle.blurple,emoji="💪")
+    async def button_trait_compliment(self,button,interaction):
+        await button.response.send_message("T, "+random.choice(compliments.T_trait_compliments))
 class Roast(discord.ui.View):
     @discord.ui.button(label="Roast T",style=discord.ButtonStyle.grey)
     async def roastT(self,button,interaction):
-        await button.response.send_message(f"A roast for <@{config.userid['T']}> - {random.choice(config.T_roasts)}")
+        await button.response.send_message(f"A roast for <@{config.userid['T']}> - {random.choice(roasts.T_roasts)}")
     @discord.ui.button(label="Roast Sh",style=discord.ButtonStyle.red)
     async def roastshris(self,button,interaction):
-        await button.response.send_message(f"A roast for <@{config.userid['Sh']}> - {random.choice(config.Sh_insults)}")
+        await button.response.send_message(f"A roast for <@{config.userid['Sh']}> - {random.choice(roasts.Sh_roasts)}")
     @discord.ui.button(label="Roast Sid",style=discord.ButtonStyle.blurple)
     async def roastsid(self,button,interaction):
-        await button.response.send_message(f"A roast for <@{config.userid['Sid']}> - {random.choice(config.sid_insults)}")
+        await button.response.send_message(f"A roast for <@{config.userid['Sid']}> - {random.choice(roasts.Sid_roasts)}")
 class Bore(discord.ui.View):
     @discord.ui.button(label="Bore lagra",style=discord.ButtonStyle.grey,emoji="🎲")
     async def borelagra(self,button,interaction):
@@ -158,3 +158,24 @@ class RecipeButton(discord.ui.Button):
     @discord.ui.button(label="Create a new ticket",style=discord.ButtonStyle.success)
     
 '''   
+def rotate_bottle(interaction:discord.Interaction):
+    players=["Sh", "T"]
+    member=interaction.guild.fetch_member(userid["Sid"])
+    permissions=interaction.channel.permissions_for(member)
+    if permissions.read_messages:
+        players.append("Sid")
+    return random.choice(players)
+def create_fullform(name):
+    res="Here is the breakdown of each letter of your name - \n"
+    name=name.lower()
+    flag=True
+    for i in name:
+        if ord(i) not in range(ord("a"),ord("z")+1) and ord(i) not in range(ord("A"),ord("Z")+1):
+            continue
+        else:
+            if flag:
+                res+=i.upper()+": "+random.choice(positive_words[i])+"\n"
+                flag=False
+            else:
+                res+=i+": "+random.choice(positive_words[i]).lower()+"\n"
+    return res
