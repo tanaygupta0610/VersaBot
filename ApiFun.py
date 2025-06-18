@@ -277,7 +277,7 @@ def askai(message:str):
         messages=[
             {"role": "user", "content": message}]
     )
-    gpt_response = response.choices[0].message.content
-    return gpt_response
+    gpt = response.choices[0].message.content
+    return gpt
 
     
