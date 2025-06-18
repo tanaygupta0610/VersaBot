@@ -172,8 +172,10 @@ async def bolo(interaction:discord.Interaction,msg:str):
 @client.tree.command(name="synonyms",description="Gives you synonyms of a word",guild=guildid)
 async def synonym(interaction:discord.Interaction,word:str):
     await interaction.response.send_message(ApiFun.syn(word))
+@client.tree.command(name="birthday",description="Gives you time remaining for the birthday",guild=guildid)
 async def birthday_function(interaction: discord.Interaction,user:discord.Member,year:int,month:int,day:int):
     await interaction.response.send_message(embed=config.countdown(user,year,month,day))
+@client.tree.command(name="askai",description="Gives you an AI generated response of the input prompt",guild=guildid)
 async  def askai(interaction:discord.Interaction,msg:str):
     await interaction.response.send_message(ApiFun.askai(msg))
 client.run(config.token)
