@@ -176,7 +176,15 @@ async def synonym(interaction:discord.Interaction,word:str):
 async def birthday_function(interaction: discord.Interaction,user:discord.Member,year:int,month:int,day:int):
     await interaction.response.send_message(embed=config.countdown(user,year,month,day))
 @client.tree.command(name="askai",description="Gives you an AI generated response of the input prompt",guild=guildid)
-async  def askai(interaction:discord.Interaction,msg:str):
-    await interaction.response.send_message(ApiFun.askai(msg))
+async def askai(interaction:discord.Interaction,msg:str):
+    await interaction.response.defer()
+    response=await ApiFun.askai(msg)
+    if len(response)>2000:
+        chunks=[response[i:i+2000] for i in range(0,len(response),2000)]
+        await interaction.followup.send(chunks[0])
+        for chunk in chunks[1:]:
+            await interaction.followup.send(chunk)
+    else:
+        await interaction.followup.send(response)
 client.run(config.token)
 #<@> or <@userid> to mention a usercls
