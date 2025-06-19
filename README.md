@@ -88,6 +88,7 @@ Customize Responses (Optional) – Tweak parameters like max_tokens for differen
 
 ## Acknowledgements
   - Thanks to the developers of various APIs used:
+    - OpenAI API
     - OpenWeatherMap API
     - Free Dictionary API
     - MusicBrainz API
