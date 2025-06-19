@@ -178,7 +178,7 @@ async def birthday_function(interaction: discord.Interaction,user:discord.Member
 @client.tree.command(name="askai",description="Gives you an AI generated response of the input prompt",guild=guildid)
 async def askai(interaction:discord.Interaction,msg:str):
     await interaction.response.defer()
-    response=await ApiFun.askai(msg)
+    response=ApiFun.askai(msg)
     if len(response)>2000:
         chunks=[response[i:i+2000] for i in range(0,len(response),2000)]
         await interaction.followup.send(chunks[0])
