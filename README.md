@@ -5,7 +5,9 @@ This bot is your all-in-one multifunctional Discord bot, designed to entertain, 
 ---
 
 ## Features:
-
+- AI Responses(New)
+  - Get AI generated responses, brainstorm, ask questions or just chat with the AI powered bot using askai command.
+  
 - Music Recommendations
   - Get personalized music suggestions based on your favorite artist or genre.
 
