@@ -60,6 +60,7 @@ Enable the Feature – Add the generated key to the OpenAIKey variable in the 2n
 Customize Responses (Optional) – Tweak parameters like max_tokens for different results.
 
 ## 🛠Installation
+(After adding your discordbot token to token vairable in 3rd line of config.py)
 
 1. Clone the repository:
    ```bash
