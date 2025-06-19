@@ -39,7 +39,7 @@ This bot is your all-in-one multifunctional Discord bot, designed to entertain, 
   - Learn something new with a random or specific number fact.
 
 --- 
-## New feature added --->
+## New feature added:
 🤖 AI-Powered Responses (OpenAI Integration)
 The Discord bot can now generate smart, context-aware replies using OpenAI’s API! Just use the askai command followed by your prompt, and let the AI handle the rest.
 
