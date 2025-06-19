@@ -60,7 +60,6 @@ Enable the Feature – Add the generated key to the OpenAIKey variable in the 2n
 Customize Responses (Optional) – Tweak parameters like max_tokens for different results.
 
 ## 🛠Installation
-(After adding your discordbot token to token vairable in 3rd line of config.py)
 
 1. Clone the repository:
    ```bash
@@ -70,10 +69,9 @@ Customize Responses (Optional) – Tweak parameters like max_tokens for differen
    (Python modules used - discord, json, requests, random, bs4, aiohttp)
     ```bash
     pip install -r requirements.txt 
-3. Create a .env file and add your bot token:
-    ```bash
-    DISCORD_TOKEN=your_bot_token_here
-5. Run the bot:
+3. Generate your discord bot token from the discord develper portal and add that to the token variable in config.py file (3rd line).
+   
+4. Run the bot:
     ```bash
     python3 bot.py
 
