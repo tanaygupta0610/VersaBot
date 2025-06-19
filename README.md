@@ -38,7 +38,26 @@ This bot is your all-in-one multifunctional Discord bot, designed to entertain, 
 - Number Facts
   - Learn something new with a random or specific number fact.
 
----
+--- 
+## New feature added --->
+🤖 AI-Powered Responses (OpenAI Integration)
+The Discord bot can now generate smart, context-aware replies using OpenAI’s API! Just use the askai command followed by your prompt, and let the AI handle the rest.
+
+✨ Key Features
+askai [prompt] – Get instant AI-generated responses in Discord.
+
+Natural Language Understanding – Supports questions, creative prompts, and general knowledge.
+
+Error Handling – Gracefully manages API failures, rate limits, and invalid requests.
+
+Configurable Settings – Adjust response length, creativity (temperature), and more via bot settings.
+
+⚙️ Setup Instructions
+Obtain an OpenAI API Key – Sign up at OpenAI and add your key to the bot’s config.
+
+Enable the Feature – Add the generated key to the OpenAIKey variable in the 2nd line of config.py file.
+
+Customize Responses (Optional) – Tweak parameters like max_tokens for different results.
 
 ## 🛠Installation
 
