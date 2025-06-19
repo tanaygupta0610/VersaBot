@@ -271,7 +271,7 @@ def syn(word):
             res+="\n"
     return res
 def askai(message:str):
-    client = OpenAI(api_key=config.OpenAIToken)
+    client = OpenAI(api_key=config.OpenAIKey)
     response = client.chat.completions.create(
         model="gpt-4",
         messages=[
