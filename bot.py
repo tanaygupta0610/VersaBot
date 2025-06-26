@@ -1,6 +1,35 @@
 import discord
 from discord.ext import commands
-import ApiFun, ButtonClass,config
+import ApiFun, ButtonClass,config, logging
+#Logger setup
+def setup_logging():
+    logger = logging.getLogger("discord")
+    logger.setLevel(logging.INFO)  # Log INFO and higher
+
+    # Format: [ISO Time] [Level] [Command] User123: Message (Guild: 123)
+    formatter = logging.Formatter(
+        "[%(asctime)s] [%(levelname)s] [%(name)s] %(message)s (User: %(user_id)s | Guild: %(guild_id)s)",
+        datefmt="%Y-%m-%dT%H:%M:%SZ"
+    )
+
+    # Rotating logs (5MB each, keep 3 backups)
+    file_handler = RotatingFileHandler(
+        filename="discord.log",
+        maxBytes=5 * 1024 * 1024,
+        backupCount=3,
+        encoding="utf-8"
+    )
+    file_handler.setFormatter(formatter)
+
+    # Console output
+    console_handler = logging.StreamHandler()
+    console_handler.setFormatter(formatter)
+
+    logger.addHandler(file_handler)
+    logger.addHandler(console_handler)
+    return logger
+
+logger = setup_logging()
 #m_server_id =Enter the server id here
 
 guildid=discord.Object(id=config.serverid)
@@ -14,17 +43,18 @@ reddit = praw.Reddit(
     
 class Client(commands.Bot):
     async def on_ready(self):
+        logger.info(
+            f"Bot logged in as {client.user.name} (ID: {client.user.id})",
+            extra={"name": "on_ready"}
+        )
         print(f'Logged in as {self.user}')
         try:
             guild = discord.Object(id=serverid)
             synced = await self.tree.sync(guild=guild)
         except Exception as e:
             print(f'Error is {e}')
-    async def on_message(self, message):
-        if message.author == self.user:
-            return
-        if message.content.startswith("hello"):
-            await message.channel.send(f'Hi sweetheart{message.author}')
+
+
 
 intents=discord.Intents.default()
 intents.messages = True
@@ -34,7 +64,16 @@ client = Client(command_prefix="/", intents=intents)
 
 serverid =0 #enter theserver id
 helplist = "/hello -Says hello to Sh and T  \n /our_list - Sends the link of our playlist <3 \n /purpose - The purpose of my creation \n /help - To give this response "
-
+@client.event
+async def on_interaction(interaction: discord.Interaction):
+    if interaction.type == discord.InteractionType.application_command:
+        logger.debug(
+            f"Interaction: {interaction.data.get('name')}",
+            extra={
+                "user_id": interaction.user.id,
+                "guild_id": interaction.guild.id if interaction.guild else "DM"
+            }
+        )
 @client.tree.command(name="hello", description="Says hello to Sh and T", guild=discord.Object(id=serverid))
 async def sayshello(interaction: discord.Interaction, us: str):
     await interaction.response.send_message("Hi sweetheart "+us+" how are you doing?")
