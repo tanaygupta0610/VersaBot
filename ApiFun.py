@@ -1,6 +1,11 @@
-import requests, json, random, discord,config
+import requests, json, random, discord,config, logging
 from openai import OpenAI
 weather_key="#API key here"
+logging.basicConfig(
+    filename='error.log',  # Log to a file named error.log
+    level=logging.ERROR,  # Only log messages with severity ERROR or higher
+    format='%(asctime)s - %(levelname)s - %(message)s'
+)
 def motivation():
     url= "https://zenquotes.io/api/random"
     response = requests.get(url)
@@ -29,6 +34,7 @@ def call_weather(city):
             wind_kph) + " kph" + "\nFeels like " + str(feelslike_c) + "℃"
     except Exception as e:
         res="Some error occured --> "+str(e)
+        logging.error(f"An unexpected error occurred by Weather API: {e}")
     return res
 
 def get_recipe():
@@ -56,6 +62,7 @@ def get_recipe():
         f"Meal Link: {meal_link}"
     except Exception as e:
         res="Some error occurred --> "+str(e)
+        logging.error(f"An unexpected error occurred by MealDB API: {e}")
     return res
 
 def filter_by_category(category):
@@ -96,6 +103,7 @@ def meal_search(meal):
         f"Meal Link: {meal_link}"
     except Exception as e:
         res="Some error occurred --> "+str(e)
+        logging.error(f"An unexpected error occurred by MealDB API: {e}")
     return res
 
 def get_recipe_by_category(cat):
@@ -133,15 +141,16 @@ def number_fact(num):
         res=response.text
     except Exception as e:
         res="Some error occurred --> "+str(e)
+        logging.error(f"An unexpected error occurred by Number API: {e}")
     return res
 def lyrics(artist,title):
     url=f"https://api.lyrics.ovh/v1/{artist}/{title}"
     response=requests.get(url)
     data=response.json()
     if(response.status_code!=200 or "error" in response.json()):
-        return ("Sorry, there was some error in fetching lyrics.")
+        return "Sorry, there was some error in fetching lyrics."
     else:
-        return("Here are the lyrics for song - {title} by {artist} - \n "+data["lyrics"])
+        return "Here are the lyrics for song - {title} by {artist} - \n "+data["lyrics"]
 def help_msg():
     embed = discord.Embed(title="List of commands -",color=discord.Color.green())
     embed.add_field(name="/help", value="This is what is does", inline=False)
@@ -192,6 +201,7 @@ def dogapi():
         embed.set_image(url=image_url)
     except Exception as e:
         embed=discord.Embed(title="Sorry, there was some error in fetching lyrics. \n"+str(e))
+        logging.error(f"An unexpected error occurred by Dog CEO API: {e}")
     return embed
 def checkusr(user:discord.Member):
     if(user.status==discord.Status.online):
@@ -226,6 +236,7 @@ def musicrecbygen(genre,limit):
         return random.choice(recordings) if recordings else None
     except requests.RequestException as e:
         print(f"MusicBrainz API error: {e}")
+        logging.error(f"An unexpected error occurred by MusicBrainz API: {e}")
         return None
 
 def get_random_recommendation_by_artist(artist: str, limit: int = 5) -> dict:
@@ -249,7 +260,8 @@ def get_random_recommendation_by_artist(artist: str, limit: int = 5) -> dict:
         return random.choice(recordings) if recordings else None
     except requests.RequestException as e:
         print(f"MusicBrainz API error: {e}")
-        return
+        logging.error(f"An unexpected error occurred: {e}")
+        return {"error":str(e)}
 def format_rec(recommendations:dict)->str:
     if not recommendations:
         return "No recommendations found"
@@ -272,6 +284,7 @@ def dic(word:str):
                 res+="Definition"+"#"+str(b+1)+" - "+meanings[a]['definitions'][b]['definition']+" \n"
     except Exception as e:
         res=str(e)
+        logging.error(f"An unexpected error occurred by Free Dictionary API: {e}")
     return res
 def syn(word):
     link=f'https://api.dictionaryapi.dev/api/v2/entries/en/{word}'
@@ -294,6 +307,7 @@ def syn(word):
                     res+="\n"
     except Exception as e:
         res=str(e)
+        logging.error(f"An unexpected error occurred by Free Dictionary API: {e}")
     return res
 def askai(message:str):
     try:
