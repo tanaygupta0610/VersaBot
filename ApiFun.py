@@ -2,7 +2,7 @@ import requests, json, random, discord,config, logging
 from openai import OpenAI
 import redis
 redis_client = redis.Redis(
-    host='localhost',  # Replace with your Redis server URL
+    host='localhost',
     port=6379,
     db=0,
     decode_responses=True  # Automatically decode responses to strings
@@ -316,23 +316,33 @@ def syn(word):
         res=str(e)
         logging.error(f"An unexpected error occurred by Free Dictionary API: {e}")
     return res
+def is_rate_limited(user_id):
+    key=f"rate_limit:{user_id}"
+    requests=redis_client.incr(key)
+    if(requests==1):
+        redis_client.expire(key, 60)
+    return requests>5
+
 def askai(user_id:str,message:str):
-    try:
-        prompt_hash = str(hash(message))
-        cache_key = f"ai:{user_id}:{prompt_hash}"
-        cached_response = redis_client.get(cache_key)
-        if(cached_response):
-            return cached_response
-        client = OpenAI(api_key=config.OpenAIKey)
-        response = client.chat.completions.create(
-        model="gpt-4",
-        messages=[
-            {"role": "user", "content": message}]
-        )
-        gpt = response.choices[0].message.content
-        redis_client.setex(cache_key, 3600, gpt)
-    except Exception as e:
-        gpt="Some error occurred -->"+str(e)
-    return gpt
+    if not is_rate_limited(user_id):
+        try:
+            prompt_hash = str(hash(message))
+            cache_key = f"ai:{user_id}:{prompt_hash}"
+            cached_response = redis_client.get(cache_key)
+            if(cached_response):
+                return cached_response
+            client = OpenAI(api_key=config.OpenAIKey)
+            response = client.chat.completions.create(
+            model="gpt-4",
+            messages=[
+                {"role": "user", "content": message}]
+            )
+            gpt = response.choices[0].message.content
+            redis_client.setex(cache_key, 3600, gpt)
+        except Exception as e:
+            gpt="Some error occurred -->"+str(e)
+        return gpt
+    else:
+        return "Too many requests, try again later"
 
     
