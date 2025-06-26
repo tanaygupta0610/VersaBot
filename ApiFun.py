@@ -1,5 +1,12 @@
 import requests, json, random, discord,config, logging
 from openai import OpenAI
+import redis
+redis_client = redis.Redis(
+    host='localhost',  # Replace with your Redis server URL
+    port=6379,
+    db=0,
+    decode_responses=True  # Automatically decode responses to strings
+)
 weather_key="#API key here"
 logging.basicConfig(
     filename='error.log',  # Log to a file named error.log
@@ -309,8 +316,13 @@ def syn(word):
         res=str(e)
         logging.error(f"An unexpected error occurred by Free Dictionary API: {e}")
     return res
-def askai(message:str):
+def askai(user_id:str,message:str):
     try:
+        prompt_hash = str(hash(message))
+        cache_key = f"ai:{user_id}:{prompt_hash}"
+        cached_response = redis_client.get(cache_key)
+        if(cached_response):
+            return cached_response
         client = OpenAI(api_key=config.OpenAIKey)
         response = client.chat.completions.create(
         model="gpt-4",
@@ -318,6 +330,7 @@ def askai(message:str):
             {"role": "user", "content": message}]
         )
         gpt = response.choices[0].message.content
+        redis_client.setex(cache_key, 3600, gpt)
     except Exception as e:
         gpt="Some error occurred -->"+str(e)
     return gpt
