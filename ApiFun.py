@@ -1,18 +1,15 @@
-import requests, json, random,discord,config
-import pathlib
+import requests, json, random, discord,config
 from openai import OpenAI
 weather_key="#API key here"
 def motivation():
-    apiurl=apiurl = "https://zenquotes.io/api/random"
-    response = requests.get(apiurl)
-    if(response.status_code == 200):
+    url= "https://zenquotes.io/api/random"
+    response = requests.get(url)
+    if response.status_code == 200:
         data = response.json()
         quote = f'Here is a quote for you "{data[0]["q"]}" - {data[0]["a"]}'
     else:
-        quote = "Sorry could not retreive the quote at the moment."
+        quote = "Sorry could not retrieve the quote at the moment."
     return quote
-    
-def get_weather(city):
 
 def call_weather(city):
     try:
@@ -47,7 +44,7 @@ def get_recipe():
         for i in range(1,21):
             index="strIngredient"+str(i)
             index2="strMeasure"+str(i)
-            if(json_data["meals"][0][index]==""):
+            if json_data["meals"][0][index]== "":
                 break
             meal_ingredients+=json_data["meals"][0][index]+" "+json_data["meals"][0][index2]+"\n"
         meal_link=json_data["meals"][0]["strSource"]
@@ -62,19 +59,19 @@ def get_recipe():
     return res
 
 def filter_by_category(category):
-    if(category=="Beef"):
-        return("Sorry, this bot has banned beef. We're not hypocrites like the BJP.")
+    if category== "Beef":
+        return "Sorry, this bot has banned beef."
     url=f"http://www.themealdb.com/api/json/v1/1/filter.php?c={category}"
     response=requests.get(url)
     A=json.loads(response.text)
-    if(A["meals"]=="null"):
-        return("Error, please check the categories again using /recipe_category_list")
+    if A["meals"]== "null":
+        return "Error, please check the categories again using /recipe_category_list"
     #recipe_list="Here are some "+category+" dishes"+"\n"
     recipe_list=[]
     for i in range(len(A["meals"])):
         #recipe_list+=A["meals"][i]["strMeal"]+"\n"
         recipe_list.append(A["meals"][i]["strMeal"])
-    return (recipe_list)
+    return recipe_list
 def meal_search(meal):
     url=f"https://www.themealdb.com/api/json/v1/1/search.php?s={meal}"
     try:
@@ -103,7 +100,7 @@ def meal_search(meal):
 
 def get_recipe_by_category(cat):
     L=filter_by_category(cat)[1:]
-    if("" in L):
+    if "" in L:
         L.remove("")
     random_recipe=random.choice(L)
     return meal_search(random_recipe)
@@ -133,7 +130,7 @@ def number_fact(num):
     url=f'http://numbersapi.com/{num}'
     try:
         response=requests.get(url)
-        res=response.text()
+        res=response.text
     except Exception as e:
         res="Some error occurred --> "+str(e)
     return res
@@ -264,7 +261,7 @@ def dic(word:str):
     link=f'https://api.dictionaryapi.dev/api/v2/entries/en/{word}'
     try:
         response=requests.get(link).json()
-        if(type(response)==type({}) and response['title']=='No Definitions Found'):
+        if type(response)==type({}) and response['title']== 'No Definitions Found':
             return("Sorry, the word "+ word +" was not found!")
         word=word.lower()
         res="Word - "+word+"\n"
@@ -280,14 +277,14 @@ def syn(word):
     link=f'https://api.dictionaryapi.dev/api/v2/entries/en/{word}'
     try:
         response=requests.get(link).json()
-        if(type(response)==type({}) and response['title']=='No Definitions Found'):
+        if type(response)==type({}) and response['title']== 'No Definitions Found':
             return("Sorry, the word "+ word +" was not found!")
         word=word.lower()
         res="Word - "+word+"\n"
         meanings=response[0]['meanings']
         for a in range(len(meanings)):
             res+=str(a+1)+") "+"Part of Speech - "+meanings[a]["partOfSpeech"]+"\n"
-            if(len(meanings[a]['synonyms'])!=0):
+            if len(meanings[a]['synonyms'])!=0:
                 res+="Synonyms - "
                 for i in range(len(meanings[a]['synonyms'])):
                     res+=meanings[a]['synonyms'][i]
@@ -308,7 +305,7 @@ def askai(message:str):
         )
         gpt = response.choices[0].message.content
     except Exception as e:
-        gpt="Some error occured -->"+str(e)
+        gpt="Some error occurred -->"+str(e)
     return gpt
 
     
