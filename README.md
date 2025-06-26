@@ -39,8 +39,7 @@ This bot is your all-in-one multifunctional Discord bot, designed to entertain, 
   - Learn something new with a random or specific number fact.
 
 --- 
-# New feature added:
-## 🤖 AI-Powered Responses (OpenAI Integration)
+# 🤖 AI-Powered Responses (OpenAI Integration)
 The Discord bot can now generate smart, context-aware replies using OpenAI’s API! Just use the askai command followed by your prompt, and let the AI handle the rest.
 
 ## ✨ Key Features
@@ -76,7 +75,7 @@ File Rotation: Automated log rotation with RotatingFileHandler (5MB/file, 3 back
 - Severity Levels: Classified logs as INFO (commands), WARN (rate limits), and CRITICAL (crashes).
 
 ## ⚡ Redis Caching
--Performance Boost: Cached frequent API responses (OpenAI, weather, music) with 25x faster response times (500ms → 20ms).
+- Performance Boost: Cached frequent API responses (OpenAI, weather, music) with 25x faster response times (500ms → 20ms).
 
 ## 🛠️ Setup Instructions
 Logging: No config needed—logs save to ./discord.log automatically.
@@ -88,13 +87,13 @@ docker run -p 6379:6379 redis  # Local setup
 ```
 Key Use Cases:
 
--The askai command: Cache OpenAI responses to reduce costs and latency.
+- The askai command: Cache OpenAI responses to reduce costs and latency.
 
--The weather command: Store city forecasts for 1 hour (TTL=3600).
+- The weather command: Store city forecasts for 1 hour (TTL=3600).
 
--Rate limiting: Track user command usage with INCR + EXPIRE.
+- Rate limiting: Track user command usage with INCR + EXPIRE.
 
--Efficient Storage: Used Redis’s SETEX for auto-expiring data and memory optimization.
+- Efficient Storage: Used Redis’s SETEX for auto-expiring data and memory optimization.
 
 # 🛠Installation
 
