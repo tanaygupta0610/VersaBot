@@ -25,6 +25,10 @@ def motivation():
 
 def call_weather(city):
     try:
+        r = redis.Redis(host='localhost', port=6379, db=0)
+        cached = r.get(f"weather:{city}")
+        if cached:
+            return cached.decode()
         url = f"http://api.weatherapi.com/v1/current.json?key={weather_key}&q={city}&aqi=no"
         response = requests.get(url)
         weather = json.loads(response.text)
@@ -39,6 +43,7 @@ def call_weather(city):
         res="City: " + name + "\nRegion: " + region + "\nCountry: " + country + "\nLocal Time: " + str(
             local_time) + "\nTemperature: " + str(temp) + "℃" + "\nCondition: " + cond + "\nWind speed: " + str(
             wind_kph) + " kph" + "\nFeels like " + str(feelslike_c) + "℃"
+        r.setex(f"weather:{city}", 3600, res)
     except Exception as e:
         res="Some error occured --> "+str(e)
         logging.error(f"An unexpected error occurred by Weather API: {e}")
