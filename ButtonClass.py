@@ -174,8 +174,8 @@ def create_fullform(name):
             continue
         else:
             if flag:
-                res+=i.upper()+": "+random.choice(positive_words[i])+"\n"
+                res+=i.upper()+": "+random.choice(compliments.positive_words[i])+"\n"
                 flag=False
             else:
-                res+=i+": "+random.choice(positive_words[i]).lower()+"\n"
+                res+=i+": "+random.choice(compliments.positive_words[i]).lower()+"\n"
     return res
