@@ -66,6 +66,7 @@ serverid =0 #enter theserver id
 helplist = "/hello -Says hello to Sh and T  \n /our_list - Sends the link of our playlist <3 \n /purpose - The purpose of my creation \n /help - To give this response "
 @client.event
 async def on_interaction(interaction: discord.Interaction):
+    #logs all the commands used by users in the server.
     if interaction.type == discord.InteractionType.application_command:
         logger.debug(
             f"Interaction: {interaction.data.get('name')}",
