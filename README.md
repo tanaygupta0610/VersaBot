@@ -43,36 +43,34 @@ This bot is your all-in-one multifunctional Discord bot, designed to entertain, 
 The Discord bot can now generate smart, context-aware replies using OpenAI’s API! Just use the askai command followed by your prompt, and let the AI handle the rest.
 
 ## ✨ Key Features
-askai [prompt] – Get instant AI-generated responses in Discord.
+- askai [prompt] – Get instant AI-generated responses in Discord.
 
-Natural Language Understanding – Supports questions, creative prompts, and general knowledge.
+- Natural Language Understanding – Supports questions, creative prompts, and general knowledge.
 
-Error Handling – Gracefully manages API failures, rate limits, and invalid requests.
+- Error Handling – Gracefully manages API failures, rate limits, and invalid requests.
 
-Configurable Settings – Adjust response length, creativity (temperature), and more via bot settings.
+- Configurable Settings – Adjust response length, creativity (temperature), and more via bot settings.
 
 ## ⚙️ Setup Instructions
-Obtain an OpenAI API Key – Sign up at OpenAI and add your key to the bot’s config.
+- Obtain an OpenAI API Key – Sign up at OpenAI and add your key to the bot’s config.
 
-Enable the Feature – Add the generated key to the OpenAIKey variable in the 2nd line of config.py file.
+- Enable the Feature – Add the generated key to the OpenAIKey variable in the 2nd line of config.py file.
 
-Customize Responses (Optional) – Tweak parameters like max_tokens for different results.
+- Customize Responses (Optional) – Tweak parameters like max_tokens for different results.
 
 # 🔍 Advanced Features
 ## 📝 Smart Logging System
-Structured Logging: Implemented a centralized logging system using Python’s logging module, capturing:
+- Structured Logging: Implemented a centralized logging system using Python’s logging module, capturing:
+  
+  - Command invocations (user ID, guild ID, timestamp). 
+  - API errors (with full stack traces via exc_info=True).
+  - Bot lifecycle events (startup, shutdown).
 
-- Command invocations (user ID, guild ID, timestamp).
+- File Rotation: Automated log rotation with RotatingFileHandler (5MB/file, 3 backups) to prevent disk bloat.
 
-- API errors (with full stack traces via exc_info=True).
+  - Contextual Tracking: Enriched logs with user/guild metadata for debugging:
 
-- Bot lifecycle events (startup, shutdown).
-
-File Rotation: Automated log rotation with RotatingFileHandler (5MB/file, 3 backups) to prevent disk bloat.
-
-- Contextual Tracking: Enriched logs with user/guild metadata for debugging:
-
-- Severity Levels: Classified logs as INFO (commands), WARN (rate limits), and CRITICAL (crashes).
+  - Severity Levels: Classified logs as INFO (commands), WARN (rate limits), and CRITICAL (crashes).
 
 ## ⚡ Redis Caching
 - Performance Boost: Cached frequent API responses (OpenAI, weather, music) with 25x faster response times (500ms → 20ms).
