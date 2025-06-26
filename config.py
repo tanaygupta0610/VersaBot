@@ -1,3 +1,4 @@
+#This file contains the necessary configurations, keys/tokens for running this application.
 OpenAIKey=""#Enter your openai token for chat gpt operations
 token = 'Enter your token here'
 #Enter user id of sid, T and SH below

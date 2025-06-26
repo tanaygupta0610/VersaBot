@@ -249,10 +249,10 @@ def get_random_recommendation_by_artist(artist: str, limit: int = 5) -> dict:
         return random.choice(recordings) if recordings else None
     except requests.RequestException as e:
         print(f"MusicBrainz API error: {e}")
-        return None
+        return
 def format_rec(recommendations:dict)->str:
     if not recommendations:
-        return("No recommendations found")
+        return "No recommendations found"
     artist = recommendations.get('artist-credit', [{}])[0].get('artist', {}).get('name', 'Unknown Artist')
     title=recommendations.get('title','Unknown Track')
     year=recommendations.get('first-release-date','Unknown Year')[:4]
@@ -278,7 +278,7 @@ def syn(word):
     try:
         response=requests.get(link).json()
         if type(response)==type({}) and response['title']== 'No Definitions Found':
-            return("Sorry, the word "+ word +" was not found!")
+            return "Sorry, the word "+ word + " was not found!"
         word=word.lower()
         res="Word - "+word+"\n"
         meanings=response[0]['meanings']
