@@ -13,45 +13,54 @@ def motivation():
     return quote
     
 def get_weather(city):
-    url = f"http://api.weatherapi.com/v1/current.json?key={weather_key}&q={city}&aqi=no"
-    response = requests.get(url)
-    json_data = json.loads(response.text)
-    return json_data
+
 def call_weather(city):
-    weather = get_weather(city)
-    name = weather['location']['name']
-    region = weather['location']['region']
-    country = weather['location']['country']
-    local_time = weather['location']['localtime']
-    temp = weather['current']['temp_c']
-    cond = weather['current']['condition']['text']
-    wind_kph = weather['current']['wind_kph']
-    feelslike_c = weather['current']['feelslike_c']
-    return ("City: "+name+"\nRegion: " + region +     "\nCountry: " + country + "\nLocal Time: " + str(local_time) + "\nTemperature: " + str(temp)+"℃" + "\nCondition: "+ cond + "\nWind speed: "+str(wind_kph)+" kph"+"\nFeels like "+str(feelslike_c)+"℃")
+    try:
+        url = f"http://api.weatherapi.com/v1/current.json?key={weather_key}&q={city}&aqi=no"
+        response = requests.get(url)
+        weather = json.loads(response.text)
+        name = weather['location']['name']
+        region = weather['location']['region']
+        country = weather['location']['country']
+        local_time = weather['location']['localtime']
+        temp = weather['current']['temp_c']
+        cond = weather['current']['condition']['text']
+        wind_kph = weather['current']['wind_kph']
+        feelslike_c = weather['current']['feelslike_c']
+        res="City: " + name + "\nRegion: " + region + "\nCountry: " + country + "\nLocal Time: " + str(
+            local_time) + "\nTemperature: " + str(temp) + "℃" + "\nCondition: " + cond + "\nWind speed: " + str(
+            wind_kph) + " kph" + "\nFeels like " + str(feelslike_c) + "℃"
+    except Exception as e:
+        res="Some error occured --> "+str(e)
+    return res
+
 def get_recipe():
     rec_link="https://www.themealdb.com/api/json/v1/1/random.php"
-    response=requests.get(rec_link)
-    json_data=response.json()
-    meal_name=json_data["meals"][0]["strMeal"]
-    meal_category=json_data["meals"][0]["strCategory"]
-    meal_instructions=json_data["meals"][0]["strInstructions"]
-    meal_youtube=json_data["meals"][0]["strYoutube"]
-    meal_ingredients=""
-    for i in range(1,21):
-        index="strIngredient"+str(i)
-        index2="strMeasure"+str(i)
-        if(json_data["meals"][0][index]==""):
-            break
-        meal_ingredients+=json_data["meals"][0][index]+" "+json_data["meals"][0][index2]+"\n"
-    meal_link=json_data["meals"][0]["strSource"]
-    return (
-        f"Meal Name: {meal_name}\n"
+    try:
+        response=requests.get(rec_link)
+        json_data=response.json()
+        meal_name=json_data["meals"][0]["strMeal"]
+        meal_category=json_data["meals"][0]["strCategory"]
+        meal_instructions=json_data["meals"][0]["strInstructions"]
+        meal_youtube=json_data["meals"][0]["strYoutube"]
+        meal_ingredients=""
+        for i in range(1,21):
+            index="strIngredient"+str(i)
+            index2="strMeasure"+str(i)
+            if(json_data["meals"][0][index]==""):
+                break
+            meal_ingredients+=json_data["meals"][0][index]+" "+json_data["meals"][0][index2]+"\n"
+        meal_link=json_data["meals"][0]["strSource"]
+        res=f"Meal Name: {meal_name}\n"
         f"Category: {meal_category}\n\n"
         f"Ingredients:\n{meal_ingredients}\n"
         f"Instructions:\n{meal_instructions}\n\n"
         f"Youtube Link: {meal_youtube}\n"
         f"Meal Link: {meal_link}"
-    )
+    except Exception as e:
+        res="Some error occurred --> "+str(e)
+    return res
+
 def filter_by_category(category):
     if(category=="Beef"):
         return("Sorry, this bot has banned beef. We're not hypocrites like the BJP.")
@@ -68,27 +77,30 @@ def filter_by_category(category):
     return (recipe_list)
 def meal_search(meal):
     url=f"https://www.themealdb.com/api/json/v1/1/search.php?s={meal}"
-    json_data=json.loads(requests.get(url).text)
-    meal_name=json_data["meals"][0]["strMeal"]
-    meal_category=json_data["meals"][0]["strCategory"]
-    meal_instructions=json_data["meals"][0]["strInstructions"]
-    meal_youtube=json_data["meals"][0]["strYoutube"]
-    meal_ingredients=""
-    for i in range(1,21):
-        index="strIngredient"+str(i)
-        index2="strMeasure"+str(i)
-        if(json_data["meals"][0][index]==""):
-            break
-        meal_ingredients+=json_data["meals"][0][index]+" "+json_data["meals"][0][index2]+"\n"
-    meal_link=json_data["meals"][0]["strSource"]
-    return (
-        f"Meal Name: {meal_name}\n"
+    try:
+        json_data=json.loads(requests.get(url).text)
+        meal_name=json_data["meals"][0]["strMeal"]
+        meal_category=json_data["meals"][0]["strCategory"]
+        meal_instructions=json_data["meals"][0]["strInstructions"]
+        meal_youtube=json_data["meals"][0]["strYoutube"]
+        meal_ingredients=""
+        for i in range(1,21):
+            index="strIngredient"+str(i)
+            index2="strMeasure"+str(i)
+            if(json_data["meals"][0][index]==""):
+                break
+            meal_ingredients+=json_data["meals"][0][index]+" "+json_data["meals"][0][index2]+"\n"
+        meal_link=json_data["meals"][0]["strSource"]
+        res =f"Meal Name: {meal_name}\n"
         f"Category: {meal_category}\n\n"
         f"Ingredients:\n{meal_ingredients}\n"
         f"Instructions:\n{meal_instructions}\n\n"
         f"Youtube Link: {meal_youtube}\n"
         f"Meal Link: {meal_link}"
-    )
+    except Exception as e:
+        res="Some error occurred --> "+str(e)
+    return res
+
 def get_recipe_by_category(cat):
     L=filter_by_category(cat)[1:]
     if("" in L):
@@ -101,22 +113,30 @@ def love_quote():
 	"x-rapidapi-host": "love-quote.p.rapidapi.com"}
     response = requests.get(url, headers=headers)
     return(response.json())
+'''
+#Movie recommendation API(was hosted in my local machine)
 def movie_recommend(genre,count):
     url=f"http://localhost:5162/Movie/genre/{genre}?count={count}"
     response=requests.get(url)
     return response
     
+#horoscope feature to be added afterwards 
 def horoscope(sunsign):
     headers={ 'Content-Type': 'application/json', 'x-api-key': 'xxo7AwhDS81gjQOfngRKS2b02jOznVTk4jP4SG8L' }
     response=requests.get()
+'''
 def random_number_fact():
     url="http://numbersapi.com/random/"
     response=requests.get(url)
     return response.text
 def number_fact(num):
     url=f'http://numbersapi.com/{num}'
-    response=requests.get(url)
-    return response.text
+    try:
+        response=requests.get(url)
+        res=response.text()
+    except Exception as e:
+        res="Some error occurred --> "+str(e)
+    return res
 def lyrics(artist,title):
     url=f"https://api.lyrics.ovh/v1/{artist}/{title}"
     response=requests.get(url)
@@ -167,11 +187,14 @@ def help_msg():
     return embed
 def dogapi():
     url="https://dog.ceo/api/breeds/image/random"
-    response=requests.get(url)
-    data=response.json()
-    imageurl=data["message"]
-    embed=discord.Embed(title="Here is a random dog picture")
-    embed.set_image(url=imageurl)
+    try:
+        response=requests.get(url)
+        data=response.json()
+        image_url=data["message"]
+        embed=discord.Embed(title="Here is a random dog picture")
+        embed.set_image(url=image_url)
+    except Exception as e:
+        embed=discord.Embed(title="Sorry, there was some error in fetching lyrics. \n"+str(e))
     return embed
 def checkusr(user:discord.Member):
     if(user.status==discord.Status.online):
@@ -276,13 +299,16 @@ def syn(word):
         res=str(e)
     return res
 def askai(message:str):
-    client = OpenAI(api_key=config.OpenAIKey)
-    response = client.chat.completions.create(
+    try:
+        client = OpenAI(api_key=config.OpenAIKey)
+        response = client.chat.completions.create(
         model="gpt-4",
         messages=[
             {"role": "user", "content": message}]
-    )
-    gpt = response.choices[0].message.content
+        )
+        gpt = response.choices[0].message.content
+    except Exception as e:
+        gpt="Some error occured -->"+str(e)
     return gpt
 
     
