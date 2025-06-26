@@ -59,26 +59,26 @@ Enable the Feature – Add the generated key to the OpenAIKey variable in the 2n
 
 Customize Responses (Optional) – Tweak parameters like max_tokens for different results.
 
-#🔍 Advanced Features
-##📝 Smart Logging System
+# 🔍 Advanced Features
+## 📝 Smart Logging System
 Structured Logging: Implemented a centralized logging system using Python’s logging module, capturing:
 
--Command invocations (user ID, guild ID, timestamp).
+- Command invocations (user ID, guild ID, timestamp).
 
--API errors (with full stack traces via exc_info=True).
+- API errors (with full stack traces via exc_info=True).
 
--Bot lifecycle events (startup, shutdown).
+- Bot lifecycle events (startup, shutdown).
 
 File Rotation: Automated log rotation with RotatingFileHandler (5MB/file, 3 backups) to prevent disk bloat.
 
--Contextual Tracking: Enriched logs with user/guild metadata for debugging:
+- Contextual Tracking: Enriched logs with user/guild metadata for debugging:
 
--Severity Levels: Classified logs as INFO (commands), WARN (rate limits), and CRITICAL (crashes).
+- Severity Levels: Classified logs as INFO (commands), WARN (rate limits), and CRITICAL (crashes).
 
-##⚡ Redis Caching
+## ⚡ Redis Caching
 -Performance Boost: Cached frequent API responses (OpenAI, weather, music) with 25x faster response times (500ms → 20ms).
 
-##🛠️ Setup Instructions
+## 🛠️ Setup Instructions
 Logging: No config needed—logs save to ./discord.log automatically.
 
 Redis:
