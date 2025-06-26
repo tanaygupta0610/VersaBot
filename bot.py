@@ -1,7 +1,5 @@
-import discord,aiohttp
-from bs4 import BeautifulSoup
+import discord
 from discord.ext import commands
-from discord import app_commands
 import ApiFun, ButtonClass,config
 #m_server_id =Enter the server id here
 
@@ -25,7 +23,7 @@ class Client(commands.Bot):
     async def on_message(self, message):
         if message.author == self.user:
             return
-        if(message.content.startswith("hello")):
+        if message.content.startswith("hello"):
             await message.channel.send(f'Hi sweetheart{message.author}')
 
 intents=discord.Intents.default()
