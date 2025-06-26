@@ -39,11 +39,11 @@ This bot is your all-in-one multifunctional Discord bot, designed to entertain, 
   - Learn something new with a random or specific number fact.
 
 --- 
-## New feature added:
-🤖 AI-Powered Responses (OpenAI Integration)
+# New feature added:
+## 🤖 AI-Powered Responses (OpenAI Integration)
 The Discord bot can now generate smart, context-aware replies using OpenAI’s API! Just use the askai command followed by your prompt, and let the AI handle the rest.
 
-✨ Key Features
+## ✨ Key Features
 askai [prompt] – Get instant AI-generated responses in Discord.
 
 Natural Language Understanding – Supports questions, creative prompts, and general knowledge.
@@ -52,7 +52,7 @@ Error Handling – Gracefully manages API failures, rate limits, and invalid req
 
 Configurable Settings – Adjust response length, creativity (temperature), and more via bot settings.
 
-⚙️ Setup Instructions
+## ⚙️ Setup Instructions
 Obtain an OpenAI API Key – Sign up at OpenAI and add your key to the bot’s config.
 
 Enable the Feature – Add the generated key to the OpenAIKey variable in the 2nd line of config.py file.
@@ -96,7 +96,7 @@ Key Use Cases:
 
 -Efficient Storage: Used Redis’s SETEX for auto-expiring data and memory optimization.
 
-## 🛠Installation
+# 🛠Installation
 
 1. Clone the repository:
    ```bash
