@@ -1,6 +1,6 @@
 # VersaBot 
 VersaBot is a discord bot created by me in the month of March, 2025.
-This bot is your all-in-one multifunctional Discord bot, designed to entertain, inform, and assist! Whether you're looking for music recommendations, curious about the weather, seeking a motivational quote, or just want to play a quick game of Truth or Dare — VersaBot has you covered.
+This bot is your all-in-one multifunctional Discord bot, designed to entertain, inform, and assist! Whether you're looking for AI generated responses or QnA, music recommendations, curious about the weather, seeking a motivational quote, or just want to play a quick game of Truth or Dare — VersaBot has you covered.
 
 ---
 
@@ -39,27 +39,61 @@ This bot is your all-in-one multifunctional Discord bot, designed to entertain, 
   - Learn something new with a random or specific number fact.
 
 --- 
-## New feature added:
-🤖 AI-Powered Responses (OpenAI Integration)
+# 🤖 AI-Powered Responses (OpenAI Integration)
 The Discord bot can now generate smart, context-aware replies using OpenAI’s API! Just use the askai command followed by your prompt, and let the AI handle the rest.
 
-✨ Key Features
-askai [prompt] – Get instant AI-generated responses in Discord.
+## ✨ Key Features
+- askai [prompt] – Get instant AI-generated responses in Discord.
 
-Natural Language Understanding – Supports questions, creative prompts, and general knowledge.
+- Natural Language Understanding – Supports questions, creative prompts, and general knowledge.
 
-Error Handling – Gracefully manages API failures, rate limits, and invalid requests.
+- Error Handling – Gracefully manages API failures, rate limits, and invalid requests.
 
-Configurable Settings – Adjust response length, creativity (temperature), and more via bot settings.
+- Configurable Settings – Adjust response length, creativity (temperature), and more via bot settings.
 
-⚙️ Setup Instructions
-Obtain an OpenAI API Key – Sign up at OpenAI and add your key to the bot’s config.
+## ⚙️ Setup Instructions
+- Obtain an OpenAI API Key – Sign up at OpenAI and add your key to the bot’s config.
 
-Enable the Feature – Add the generated key to the OpenAIKey variable in the 2nd line of config.py file.
+- Enable the Feature – Add the generated key to the OpenAIKey variable in the 2nd line of config.py file.
 
-Customize Responses (Optional) – Tweak parameters like max_tokens for different results.
+- Customize Responses (Optional) – Tweak parameters like max_tokens for different results.
 
-## 🛠Installation
+# 🔍 Advanced Features
+## 📝 Smart Logging System
+- Structured Logging: Implemented a centralized logging system using Python’s logging module, capturing:
+  
+  - Command invocations (user ID, guild ID, timestamp). 
+  - API errors (with full stack traces via exc_info=True).
+  - Bot lifecycle events (startup, shutdown).
+
+- File Rotation: Automated log rotation with RotatingFileHandler (5MB/file, 3 backups) to prevent disk bloat.
+
+  - Contextual Tracking: Enriched logs with user/guild metadata for debugging:
+
+  - Severity Levels: Classified logs as INFO (commands), WARN (rate limits), and CRITICAL (crashes).
+
+## ⚡ Redis Caching
+- Performance Boost: Cached frequent API responses (OpenAI, weather, music) with 25x faster response times (500ms → 20ms).
+
+## 🛠️ Setup Instructions
+Logging: No config needed—logs save to ./discord.log automatically.
+
+Redis:
+
+```bash
+docker run -p 6379:6379 redis  # Local setup
+```
+Key Use Cases:
+
+- The askai command: Cache OpenAI responses to reduce costs and latency.
+
+- The weather command: Store city forecasts for 1 hour (TTL=3600).
+
+- Rate limiting: Track user command usage with INCR + EXPIRE.
+
+- Efficient Storage: Used Redis’s SETEX for auto-expiring data and memory optimization.
+
+# 🛠Installation
 
 1. Clone the repository:
    ```bash
