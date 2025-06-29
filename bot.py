@@ -1,3 +1,5 @@
+from logging.handlers import RotatingFileHandler
+
 import discord
 from discord.ext import commands
 import ApiFun, ButtonClass,config, logging
