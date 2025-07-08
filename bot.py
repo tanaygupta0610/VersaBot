@@ -3,6 +3,7 @@ from logging.handlers import RotatingFileHandler
 import discord
 from discord.ext import commands
 import ApiFun, ButtonClass,config, logging
+
 #Logger setup
 def setup_logging():
     logger = logging.getLogger("discord")
@@ -226,5 +227,13 @@ async def askai(interaction:discord.Interaction,msg:str):
             await interaction.followup.send(chunk)
     else:
         await interaction.followup.send(response)
+@client.tree.command(name="gmat",description="Gives you a random GMAT question to solve",guild=guild_id)
+async def gmat(interaction:discord.Interaction):
+    embed = discord.Embed(
+        title="GMAT Practice Questions",
+        description="Select a category to get started:",
+        color=discord.Color.blue()
+    )
+    await interaction.response.send_message(embed=embed,view=ButtonClass.Gmat())
 client.run(config.token)
 #<@> or <@userid> to mention a usercls

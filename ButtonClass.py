@@ -1,10 +1,12 @@
-import discord
-import config, random,ApiFun,compliments,roasts
+import discord,random
+import config,ApiFun
+from personal import compliments,roasts,apology
+from gmat import gmat_quant,gmat_verbal,gmat_data_insights
 discordbuttonstyle=[discord.ButtonStyle.blurple,discord.ButtonStyle.gray,discord.ButtonStyle.danger,discord.ButtonStyle.green]
 class Apology(discord.ui.View):
     @discord.ui.button(label="Apologise to Sh",style=discord.ButtonStyle.red,emoji="👑")
     async def button_callback(self,button,interaction):
-        await button.response.send_message("T says to <UserID of the person you are apologizing to> - "+config.apologise_to_Sh())
+        await button.response.send_message("T says to <UserID of the person you are apologizing to> - "+apology.apologise_to_Sh())
     @discord.ui.button(label="Apologise to T",style=discord.ButtonStyle.blurple,emoji="👨🏻")
     async def button_call(self,button,interaction):
         await button.response.send_message("T says - no need cutu, apology accepted.")
@@ -160,7 +162,7 @@ class RecipeButton(discord.ui.Button):
 '''   
 def rotate_bottle(interaction:discord.Interaction):
     players=["Sh", "T"]
-    member=interaction.guild.fetch_member(userid["Sid"])
+    member=interaction.guild.fetch_member(config.userid["Sid"])
     permissions=interaction.channel.permissions_for(member)
     if permissions.read_messages:
         players.append("Sid")
@@ -179,3 +181,97 @@ def create_fullform(name):
             else:
                 res+=i+": "+random.choice(compliments.positive_words[i]).lower()+"\n"
     return res
+def gmat(type):
+    random_element={}
+    if(type=="Quant"):
+        random_element = random.choice(gmat_quant.quant_questions)
+    elif(type=="Verbal"):
+        random_element = random.choice(gmat_verbal.verbal_questions)
+    elif(type=="DataInsights"):
+        random_element=random.choice(gmat_data_insights.data_insights_questions)
+    return random_element
+
+class AnswerButtons(discord.ui.View):
+    def __init__(self, correct,explaination):
+        super().__init__(timeout=60)
+        self.correct_answer = correct
+        self.explanation = explaination
+        self.responded = False
+
+    async def disable_all_buttons(self):
+        for item in self.children:
+            if isinstance(item, discord.ui.Button):
+                item.disabled = True
+
+    async def on_timeout(self):
+        await self.disable_all_buttons()
+
+    @discord.ui.button(label='A', style=discord.ButtonStyle.blurple)
+    async def a_button(self, interaction: discord.Interaction, button: discord.ui.Button):
+        await self.handle_answer(interaction, 'A')
+
+    @discord.ui.button(label='B', style=discord.ButtonStyle.grey)
+    async def b_button(self, interaction: discord.Interaction, button: discord.ui.Button):
+        await self.handle_answer(interaction, 'B')
+
+    @discord.ui.button(label='C', style=discord.ButtonStyle.primary)
+    async def c_button(self, interaction: discord.Interaction, button: discord.ui.Button):
+        await self.handle_answer(interaction, 'C')
+
+    @discord.ui.button(label='D', style=discord.ButtonStyle.grey)
+    async def d_button(self, interaction: discord.Interaction, button: discord.ui.Button):
+        await self.handle_answer(interaction, 'D')
+
+    @discord.ui.button(label='E', style=discord.ButtonStyle.primary)
+    async def e_button(self, interaction: discord.Interaction, button: discord.ui.Button):
+        await self.handle_answer(interaction, 'E')
+
+    async def handle_answer(self, interaction: discord.Interaction, selected_answer):
+        if self.responded:
+            return
+
+        self.responded = True
+        await self.disable_all_buttons()
+
+        is_correct = selected_answer == self.correct_answer
+        color = discord.Color.green() if is_correct else discord.Color.red()
+        result = "Correct!" if is_correct else "Incorrect!"
+
+        embed = discord.Embed(
+            title=f"Answer: {self.correct_answer} ({result})",
+            description=f"**Explanation:** {self.explanation}",
+            color=color
+        )
+
+        await interaction.response.edit_message(view=self)
+        await interaction.followup.send(embed=embed)
+
+class Gmat(discord.ui.View):
+    @discord.ui.button(label="Quantitative Aptitude", style=discord.ButtonStyle.green)
+    async def quant(self, button, interaction):
+        ele_var=gmat("Quant")
+        options_embed=""
+        for op in ele_var["options"]:
+            options_embed=options_embed+op+"\n"
+        embed = discord.Embed(title="Quantitative Aptitude", description=ele_var["question"]+"\n"+options_embed)
+        await button.response.send_message(embed=embed,view=AnswerButtons(ele_var["answer"],ele_var["explanation"]))
+
+    @discord.ui.button(label="Data Insights", style=discord.ButtonStyle.blurple)
+    async def di(self, button, interaction):
+        ele_var = gmat("DataInsights")
+        options_embed = ""
+        for op in ele_var["options"]:
+            options_embed = options_embed + op + "\n"
+        embed = discord.Embed(title="Data Insights", description=ele_var["question"]+options_embed)
+        await button.response.send_message(embed=embed,view=AnswerButtons(ele_var["answer"],ele_var["explanation"]))
+
+
+    @discord.ui.button(label="Verbal Reasoning", style=discord.ButtonStyle.red)
+    async def verbal(self, button, interaction):
+        ele_var=gmat("Verbal")
+        options_embed = ""
+        for op in ele_var["options"]:
+            options_embed = options_embed + op + "\n"
+        embed=discord.Embed(title="Verbal Reasoning", description=ele_var["question"]+options_embed)
+        await button.response.send_message(embed=embed,view=AnswerButtons(ele_var["answer"],ele_var["explanation"]))
+
