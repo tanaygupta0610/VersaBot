@@ -3,7 +3,7 @@ from logging.handlers import RotatingFileHandler
 import discord
 from discord.ext import commands
 import ApiFun, ButtonClass,config, logging
-
+guild_id=config.serverid
 #Logger setup
 def setup_logging():
     logger = logging.getLogger("discord")
