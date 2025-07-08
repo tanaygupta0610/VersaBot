@@ -1,6 +1,7 @@
-import requests, json, random, discord,config, logging
+import requests, json, random, discord,config
 from openai import OpenAI
-import redis
+'''
+import redis, logging
 redis_client = redis.Redis(
     host='localhost',
     port=6379,
@@ -13,6 +14,7 @@ logging.basicConfig(
     level=logging.ERROR,  # Only log messages with severity ERROR or higher
     format='%(asctime)s - %(levelname)s - %(message)s'
 )
+'''
 def motivation():
     url= "https://zenquotes.io/api/random"
     response = requests.get(url)
@@ -25,11 +27,11 @@ def motivation():
 
 def call_weather(city):
     try:
-        r = redis.Redis(host='localhost', port=6379, db=0)
-        cached = r.get(f"weather:{city}")
-        if cached:
-            return cached.decode()
-        url = f"http://api.weatherapi.com/v1/current.json?key={weather_key}&q={city}&aqi=no"
+        #r = redis.Redis(host='localhost', port=6379, db=0)
+        #cached = r.get(f"weather:{city}")
+        #if cached:
+            #return cached.decode()
+        url = f"http://api.weatherapi.com/v1/current.json?key={config.weather_key}&q={city}&aqi=no"
         response = requests.get(url)
         weather = json.loads(response.text)
         name = weather['location']['name']
