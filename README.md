@@ -38,6 +38,9 @@ This bot is your all-in-one multifunctional Discord bot, designed to entertain, 
 - Number Facts
   - Learn something new with a random or specific number fact.
 
+- GMAT Questions
+  - Get random gmat questions for practice according to the section choosen in the form of buttons.Answers and explainations are also provided with each question
+
 --- 
 # 🤖 AI-Powered Responses (OpenAI Integration)
 The Discord bot can now generate smart, context-aware replies using OpenAI’s API! Just use the askai command followed by your prompt, and let the AI handle the rest.
