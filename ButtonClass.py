@@ -181,21 +181,13 @@ def create_fullform(name):
             else:
                 res+=i+": "+random.choice(compliments.positive_words[i]).lower()+"\n"
     return res
-def gmat(type):
-    random_element={}
-    if(type=="Quant"):
-        random_element = random.choice(gmat_quant.quant_questions)
-    elif(type=="Verbal"):
-        random_element = random.choice(gmat_verbal.verbal_questions)
-    elif(type=="DataInsights"):
-        random_element=random.choice(gmat_data_insights.data_insights_questions)
-    return random_element
+
 
 class AnswerButtons(discord.ui.View):
-    def __init__(self, correct,explaination):
-        super().__init__(timeout=60)
+    def __init__(self, correct,explanation):
+        super().__init__(timeout=120)
         self.correct_answer = correct
-        self.explanation = explaination
+        self.explanation = explanation
         self.responded = False
 
     async def disable_all_buttons(self):
@@ -245,29 +237,38 @@ class AnswerButtons(discord.ui.View):
 
         await interaction.response.edit_message(view=self)
         await interaction.followup.send(embed=embed)
-def embed_question(element:dict):
-    options_embed=""
-    for op in element["options"]:
-        options_embed = options_embed + f" {op}\n"
-    return element["question"] +"\n"+ options_embed
 
 class Gmat(discord.ui.View):
+    def get_gmat(self,type):
+        random_element = {}
+        if type == "Quant":
+            random_element = random.choice(gmat_quant.quant_questions)
+        elif type == "Verbal":
+            random_element = random.choice(gmat_verbal.verbal_questions)
+        elif type == "DataInsights":
+            random_element = random.choice(gmat_data_insights.data_insights_questions)
+        return random_element
+    def embed_question(self,element: dict):
+        options_embed = ""
+        for op in element["options"]:
+            options_embed = options_embed + f" {op}\n"
+        return element["question"] + "\n" + options_embed
     @discord.ui.button(label="Quantitative Aptitude", style=discord.ButtonStyle.green)
     async def quant(self, button, interaction):
-        ele_var=gmat("Quant")
-        embed = discord.Embed(title="Quantitative Aptitude", description=embed_question(ele_var))
+        ele_var=self.get_gmat("Quant")
+        embed = discord.Embed(title="Quantitative Aptitude", description=self.embed_question(ele_var))
         await button.response.send_message(embed=embed,view=AnswerButtons(ele_var["answer"],ele_var["explanation"]))
 
     @discord.ui.button(label="Data Insights", style=discord.ButtonStyle.blurple)
     async def di(self, button, interaction):
-        ele_var = gmat("DataInsights")
-        embed = discord.Embed(title="Data Insights", description=embed_question(ele_var))
+        ele_var = self.get_gmat("DataInsights")
+        embed = discord.Embed(title="Data Insights", description=self.embed_question(ele_var))
         await button.response.send_message(embed=embed,view=AnswerButtons(ele_var["answer"],ele_var["explanation"]))
 
 
     @discord.ui.button(label="Verbal Reasoning", style=discord.ButtonStyle.red)
     async def verbal(self, button, interaction):
-        ele_var=gmat("Verbal")
-        embed=discord.Embed(title="Verbal Reasoning", description=embed_question(ele_var))
+        ele_var=self.get_gmat("Verbal")
+        embed=discord.Embed(title="Verbal Reasoning", description=self.embed_question(ele_var))
         await button.response.send_message(embed=embed,view=AnswerButtons(ele_var["answer"],ele_var["explanation"]))
 
