@@ -245,33 +245,29 @@ class AnswerButtons(discord.ui.View):
 
         await interaction.response.edit_message(view=self)
         await interaction.followup.send(embed=embed)
+def embed_question(element:dict):
+    options_embed=""
+    for op in element["options"]:
+        options_embed = options_embed + f" {op}\n"
+    return element["question"] +"\n"+ options_embed
 
 class Gmat(discord.ui.View):
     @discord.ui.button(label="Quantitative Aptitude", style=discord.ButtonStyle.green)
     async def quant(self, button, interaction):
         ele_var=gmat("Quant")
-        options_embed=""
-        for op in ele_var["options"]:
-            options_embed=options_embed+op+"\n"
-        embed = discord.Embed(title="Quantitative Aptitude", description=ele_var["question"]+"\n"+options_embed)
+        embed = discord.Embed(title="Quantitative Aptitude", description=embed_question(ele_var))
         await button.response.send_message(embed=embed,view=AnswerButtons(ele_var["answer"],ele_var["explanation"]))
 
     @discord.ui.button(label="Data Insights", style=discord.ButtonStyle.blurple)
     async def di(self, button, interaction):
         ele_var = gmat("DataInsights")
-        options_embed = ""
-        for op in ele_var["options"]:
-            options_embed = options_embed + op + "\n"
-        embed = discord.Embed(title="Data Insights", description=ele_var["question"]+options_embed)
+        embed = discord.Embed(title="Data Insights", description=embed_question(ele_var))
         await button.response.send_message(embed=embed,view=AnswerButtons(ele_var["answer"],ele_var["explanation"]))
 
 
     @discord.ui.button(label="Verbal Reasoning", style=discord.ButtonStyle.red)
     async def verbal(self, button, interaction):
         ele_var=gmat("Verbal")
-        options_embed = ""
-        for op in ele_var["options"]:
-            options_embed = options_embed + op + "\n"
-        embed=discord.Embed(title="Verbal Reasoning", description=ele_var["question"]+options_embed)
+        embed=discord.Embed(title="Verbal Reasoning", description=embed_question(ele_var))
         await button.response.send_message(embed=embed,view=AnswerButtons(ele_var["answer"],ele_var["explanation"]))
 
