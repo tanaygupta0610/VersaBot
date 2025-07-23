@@ -224,5 +224,6 @@ async def gmat(interaction:discord.Interaction):
         color=discord.Color.blue()
     )
     await interaction.response.send_message(embed=embed,view=ButtonClass.Gmat())
-client.run(config.token)
+if __name__ =="__main__":
+    client.run(config.token)
 #<@> or <@userid> to mention a usercls

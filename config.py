@@ -1,6 +1,6 @@
 import os
 from dotenv import load_dotenv
-load_dotenv()
+load_dotenv('.env')
 #This file contains the necessary configurations, keys/tokens for running this application.
 OpenAIKey=os.getenv("OPENAI_KEY")#Enter your openai token for chat gpt operations
 token = os.getenv("DISCORD_VERSABOT_TOKEN")
