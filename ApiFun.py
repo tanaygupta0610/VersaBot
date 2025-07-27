@@ -283,12 +283,12 @@ def format_rec(recommendations:dict)->str:
     title=recommendations.get('title','Unknown Track')
     year=recommendations.get('first-release-date','Unknown Year')[:4]
     return f"🎵 Recommended Track: {artist} - {title} ({year})"
-def dic(word:str):
+def dictionary(word:str):
     link=f'https://api.dictionaryapi.dev/api/v2/entries/en/{word}'
     try:
         response=requests.get(link).json()
         if type(response)==type({}) and response['title']== 'No Definitions Found':
-            return("Sorry, the word "+ word +" was not found!")
+            return(response["message"])
         word=word.lower()
         res="Word - "+word+"\n"
         meanings=response[0]['meanings']

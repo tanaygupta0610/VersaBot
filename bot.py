@@ -1,6 +1,6 @@
 from logging.handlers import RotatingFileHandler
 
-import discord
+import discord,redis
 from discord.ext import commands
 import ApiFun, ButtonClass,config
 
@@ -196,7 +196,7 @@ async def random_music_by_artist(interaction:discord.Interaction,artist:str,limi
     await interaction.response.send_message(ApiFun.format_rec(recommendations=recommendations))
 @client.tree.command(name="dictionary",description="Gives you definitions of a word",guild=guild_id)
 async def dictionary(interaction:discord.Interaction,word:str):
-    await interaction.response.send_message(ApiFun.dic(word))
+    await interaction.response.send_message(ApiFun.dictionary(word))
 async def bolo(interaction:discord.Interaction,msg:str):
     await interaction.response.send_message(interaction.user.mention+" says '"+msg+"'")
 @client.tree.command(name="synonyms",description="Gives you synonyms of a word",guild=guild_id)
